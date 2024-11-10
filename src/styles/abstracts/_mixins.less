@@ -1,0 +1,11 @@
+.flex-center() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.responsive(@min-width; @content) {
+    @media screen and (min-width: @min-width) {
+        @content();
+    }
+}

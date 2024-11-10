@@ -1,0 +1,57 @@
+<div class="mb-8" *ngIf="featuredProduct">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">{{ featuredProduct.name }}</h2>
+        <button
+          class="bg-black text-white w-full py-2 hover:bg-gray-800 transition-colors md:w-auto md:px-6"
+          (click)="addToCart(featuredProduct)">
+          ADD TO CART
+        </button>
+      </div>
+    <div class="relative">
+      <img 
+        [src]="featuredProduct.image.src" 
+        [alt]="featuredProduct.image.name"
+        class="w-full h-[600px] object-cover">
+      <span class="absolute left-0 bottom-0 py-2 px-8 bg-white text-black text-sm badge-feature min-w-[200px] min-h-[40px   ]">
+        Photo of the day
+      </span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">About {{ featuredProduct.name }}</h3>
+        <p class="text-gray-600 mb-2">{{ featuredProduct.category.name }}</p>
+        <p class="text-gray-700">
+          {{ featuredProduct.description }}
+        </p>
+      </div>
+      <div class="mb-8">
+        <h3 class="text-xl font-bold mb-4 text-right">People also buy</h3>
+        <div class="flex justify-end gap-4">
+          <div *ngFor="let related of featuredProduct.people_also_buy" 
+               class="max-w-[160px] people-also-buy">
+            <div class="aspect-square mb-2">
+              <img 
+                [src]="related.image.src"
+                [alt]="related.image.alt"
+                class="w-full h-full object-cover">
+            </div>
+            <div class="text-left">
+              <p class="text-gray-400 text-sm category-name">{{ related.category.name }}</p>
+              <p class="font-medium text-black line-clamp-2 product-name">{{ related.name }}</p>
+              <p class="text-gray-400 mt-1 product-price">${{ related.price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border-gray-200 border-t mt-10 mb-10">
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center h-96">
+    <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+  </div>
+
+  <div *ngIf="error" class="flex justify-center items-center h-96">
+    <div class="text-red-500">Failed to load featured product</div>
+  </div>
